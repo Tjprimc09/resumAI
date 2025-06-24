@@ -192,3 +192,35 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Build output
+client/bundle.js
+dist/
+build/
+
+# Webpack cache
+.cache/
+webpack-stats.json
+
+# Frontend config
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+# Logs
+*.log
+
+# IDE-specific
+.vscode/
+.idea/
+
+# OS-specific
+.DS_Store
+Thumbs.db
