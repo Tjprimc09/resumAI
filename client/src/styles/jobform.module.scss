@@ -1,0 +1,36 @@
+.jobForm {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding:20px;
+}
+
+.jobTextarea {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.jobFileInput {
+  margin: 1rem;
+}
+
+.jobDropzone {
+  border: 1px dashed gray;
+  padding: 1rem;
+
+}
+
+.active {
+  background-color: #f0f0f0;
+}
+
+.jobError {
+  color: red;
+}
+
+.jobSubmitButton {
+  background: blue;
+  color: white;
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  }
