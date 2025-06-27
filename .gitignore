@@ -128,6 +128,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+*.env
 .env
 .venv
 env/
@@ -224,3 +225,13 @@ webpack-stats.json
 # OS-specific
 .DS_Store
 Thumbs.db
+# CosmosDB local backups or exports (if ever used)
+*.bson
+*.json.gz
+
+# Azure Functions local settings
+local.settings.json
+
+# Optional: Personal credentials dump or logging
+*.creds
+*.secrets
