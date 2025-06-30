@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import * as styles from '../styles/jobform.module.scss';
-console.log('STYLES', styles);
-console.log('typeof STYLES', typeof styles);
-console.log('ALL KEYS', styles ? Object.keys(styles) : 'NO STYLES');
 
 function JobForm() {
   const [jobDescription, setJobDescription] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState('');
   const [dragActive, setDragActive] = useState(false);
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [submittedJobs, setSubmittedJobs] = useState([]);
 
   function handleTextChange(e) {
     setJobDescription(e.target.value);
@@ -39,20 +39,20 @@ function JobForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
+    setSuccess('');
+    setError('');
 
     const hasText = jobDescription.trim() !== '';
     const hasFile = selectedFile !== null;
 
     if ((hasText && hasFile) || (!hasText && !hasFile)) {
       setError('Please provide either a job description or upload a file — not both.');
+      setLoading(false);
       return;
     }
 
-    setError('');
-
     if (hasText) {
-      console.log('Submitting job description:', jobDescription);
-
       const payload = {
         raw_text: jobDescription.trim(),
         type: "job",
@@ -60,7 +60,7 @@ function JobForm() {
       };
 
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("http://localhost:7071/api/upload_job", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -70,22 +70,50 @@ function JobForm() {
 
         if (!response.ok) {
           const errorText = await response.text();
-          console.error("Upload failed:", errorText);
           setError("Server error: " + errorText);
+          setLoading(false);
           return;
         }
 
         const result = await response.json();
-        console.log("Upload successful:", result);
-        // Optional: clear form after success
+        setSuccess("Job uploaded successfully!");
+        setSubmittedJobs(prev => [...prev, { job_id: result.job_id, blob_url: result.blob_url }]);
         setJobDescription('');
+        setSelectedFile(null);
+        setLoading(false);
       } catch (error) {
-        console.error("Network or server error:", error);
+        console.error("Network error:", error);
         setError("Unexpected error. Check console for details.");
+        setLoading(false);
       }
     } else {
-      console.log('Submitting file:', selectedFile);
-      // TODO: Send selectedFile to backend using FormData
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      try {
+        const response = await fetch("http://localhost:7071/api/upload_job", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          setError("Server error: " + errorText);
+          setLoading(false);
+          return;
+        }
+
+        const result = await response.json();
+        setSuccess("File uploaded successfully!");
+        setSubmittedJobs(prev => [...prev, { job_id: result.job_id, blob_url: result.blob_url }]);
+        setJobDescription('');
+        setSelectedFile(null);
+        setLoading(false);
+      } catch (error) {
+        console.error("Network error:", error);
+        setError("Unexpected error. Check console for details.");
+        setLoading(false);
+      }
     }
   }
 
@@ -93,6 +121,7 @@ function JobForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.jobForm}>
+     <div className={styles.jobFieldGroup}> 
       <label htmlFor="job-desc">Job Description</label>
       <textarea
         id="job-desc"
@@ -101,7 +130,8 @@ function JobForm() {
         placeholder="Paste job description here..."
         className={styles.jobTextarea}
       />
-
+      </div>
+     <div className={styles.jobFieldGroup}> 
       <label htmlFor="file-upload">Upload a File</label>
       <input
         type="file"
@@ -110,6 +140,7 @@ function JobForm() {
         accept=".pdf,.doc,.docx,.txt"
         className={styles.jobFileInput}
       />
+      </div>
 
       <div
         onDragOver={handleDragOver}
@@ -125,10 +156,27 @@ function JobForm() {
       </div>
 
       {error && <p className={styles.jobError}>{error}</p>}
+      {loading && <p className={styles.jobLoading}>Uploading...</p>}
+      {success && <p className={styles.jobSuccess}>{success}</p>}
 
       <button type="submit" disabled={isSubmitDisabled} className={styles.jobSubmitButton}>
         Submit
       </button>
+
+      {submittedJobs.length > 0 && (
+        <div className={styles.jobHistory}>
+          <h3>Uploaded Jobs</h3>
+          <ul>
+            {submittedJobs.map(job => (
+              <li key={job.job_id}>
+                <a href={job.blob_url} target="_blank" rel="noopener noreferrer">
+                  {job.job_id}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </form>
   );
 }
