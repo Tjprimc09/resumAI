@@ -66,6 +66,10 @@ def upload_job(req: func.HttpRequest) -> func.HttpResponse:
             blob_client = blob_service.get_blob_client(container=container_name, blob=blob_path)
             blob_client.upload_blob(file_bytes, overwrite=True)
 
+            from server.doc_intel import extract_and_save_raw_text
+            text_blob_path = extract_and_save_raw_text(container_name, blob_path)
+
+
             sas_token = generate_blob_sas(
                 account_name=blob_client.account_name,
                 container_name=blob_client.container_name,

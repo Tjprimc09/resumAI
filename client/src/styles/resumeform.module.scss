@@ -1,0 +1,225 @@
+.resumeFormContainer {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.resumeFormSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.sectionSubtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+}
+
+.jobFieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.inputField,
+.textarea {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inputField::placeholder,
+.textarea::placeholder {
+  color: #888;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.submitButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:enabled {
+    background-color: #cfcfcf;
+  }
+
+  &:disabled {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    color: #999;
+  }
+}
+
+.uploadMessage {
+  margin-top: 1rem;
+  color: #2e7d32;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.copyButton {
+  margin-left: 1rem;
+  background: none;
+  border: none;
+  color: #0078d4;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: underline;
+
+  &:hover {
+    color: #005ea2;
+  }
+}
+
+.dropZone {
+  border: 1px dashed #ccc;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  font-size: .9rem;
+  color: #666;
+  background-color: white;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f8ff;
+    border-color: #0078d4;
+  }
+}
+
+.active {
+  background-color: #e6f2ff;
+  border-color: #0078d4;
+}
+
+.dragActive {
+  background-color: #e8f4fd;
+  border-color: #0078d4;
+  color: #0078d4;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top: 2px solid #333;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.activeButton {
+  background-color: #0078d4 !important;
+  color: #ffffff;
+
+  &:hover:enabled {
+    background-color: #006bb3;
+  }
+
+  &:disabled {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+  }
+}
+
+
+.fileDisplay {
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #f3f3f3;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clearInline {
+  margin-left: 1rem;
+  color: #a00;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  &:hover {
+    color: #d00;
+  }
+}
+
+.fileList {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.fileListItem {
+  margin-bottom: 0.25rem;
+  overflow-wrap: break-word;
+}
+.fileSummarySection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.inlineFileDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f3f3;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #333;
+}

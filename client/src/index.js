@@ -1,6 +1,6 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
-import JobForm from './components/jobform';
+import JobForm from './components/tabcard';
 
 const root= createRoot(document.getElementById('root'));
 root.render(<JobForm/>);

@@ -5,3 +5,4 @@
 azure-Functions
 azure-storage-blob
 python-dotenv
+azure-ai-formrecognizer==3.3.2
